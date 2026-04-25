@@ -1,0 +1,3 @@
+# Dependencias opcionais para inferencia local com GGUF
+# Pode exigir Visual C++ Build Tools no Windows para algumas versoes.
+llama-cpp-python==0.3.1

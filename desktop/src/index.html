@@ -1,0 +1,44 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Control AI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <h1>Control AI</h1>
+      <p class="muted">Assistente local autonomo</p>
+      <div class="status-card">
+        <span id="statusDot" class="dot"></span>
+        <span id="statusText">Inicializando...</span>
+      </div>
+      <button id="newChatBtn">Nova conversa</button>
+      <button id="reloadSkillsBtn">Recarregar skills</button>
+      <button id="healthBtn">Ver saude</button>
+      <div class="panel">
+        <h3>Confianca</h3>
+        <p id="confidence">-</p>
+      </div>
+      <div class="panel">
+        <h3>Modo IA</h3>
+        <p id="mode">-</p>
+      </div>
+    </aside>
+
+    <main class="chat-main">
+      <div id="chatHistory" class="chat-history"></div>
+      <div id="sources" class="sources"></div>
+
+      <form id="chatForm" class="composer">
+        <textarea id="messageInput" rows="3" placeholder="Digite sua mensagem..."></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
