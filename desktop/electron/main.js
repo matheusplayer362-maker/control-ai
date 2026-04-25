@@ -5,7 +5,11 @@ const { spawn, spawnSync } = require('child_process');
 const http = require('http');
 
 const PORT = process.env.CONTROL_AI_PORT || '8765';
-const BASE_URL = `http://127.0.0.1:${PORT}`;
+const LOCAL_BASE_URL = `http://127.0.0.1:${PORT}`;
+const DEFAULT_REMOTE_BASE_URL = 'https://control-ai.onrender.com';
+const REMOTE_BASE_URL = (process.env.CONTROL_AI_API_BASE_URL || '').trim().replace(/\/$/, '');
+const BASE_URL = REMOTE_BASE_URL || (app.isPackaged ? DEFAULT_REMOTE_BASE_URL : LOCAL_BASE_URL);
+const USE_REMOTE_BACKEND = BASE_URL !== LOCAL_BASE_URL;
 const STARTUP_TIMEOUT_MS = 120000;
 let backendProcess = null;
 
@@ -268,8 +272,12 @@ function createWindow() {
 
 app.whenReady().then(async () => {
   try {
-    const child = startBackend();
-    await waitForBackend(child);
+    if (USE_REMOTE_BACKEND) {
+      appendStartupLog(`Usando backend remoto em ${BASE_URL}`);
+    } else {
+      const child = startBackend();
+      await waitForBackend(child);
+    }
     createWindow();
   } catch (error) {
     appendStartupLog(`Falha no startup: ${error.message}`);
